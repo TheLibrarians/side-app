@@ -1,32 +1,31 @@
+<div class="bg-zinc-50 h-full">
+<div class="max-w-screen-md mx-auto ">
+
 <h1>Listing Books</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Cover</th>
-      <th>Description</th>
-      <th>Goodreads url</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for book <- @books do %>
-    <tr>
-      <td><%= book.title %></td>
-      <td><%= book.cover %></td>
-      <td><%= book.description %></td>
-      <td><%= book.goodreads_url %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.book_path(@conn, :show, book) %></span>
-        <span><%= link "Edit", to: Routes.book_path(@conn, :edit, book) %></span>
-        <span><%= link "Delete", to: Routes.book_path(@conn, :delete, book), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
 <span><%= link "New Book", to: Routes.book_path(@conn, :new) %></span>
+
+<div class="flex flex flex-wrap space-y-4 mt-4">
+
+  <%= for book <- @books do %>
+    <div class="p-4 rounded shadow w-96">
+      <h1><%= book.title %></h1>
+      <div class="flex gap-x-4">
+        <div class="h-48">
+          <img src={book.cover} class="transition h-full object-cover hover:scale-125" />
+        </div>
+        <tr>
+          <td>
+            <span><%= link "Show", to: Routes.book_path(@conn, :show, book) %></span>
+            <span><%= link "Edit", to: Routes.book_path(@conn, :edit, book) %></span>
+            <span><%= link "Delete", to: Routes.book_path(@conn, :delete, book), method: :delete, data: [confirm: "Are you sure?"] %></span>
+          </td>
+        </tr>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+</div>
+</div>
