@@ -50,7 +50,9 @@
       <% end %>
     </div>
 
-    <a class="text-2xl font-medium" href=""><%= @quest.title %></a>
+    <a class="font-sans font-bold" href="">
+    <span class="rounded bg-purple-400 text-white p-1 px-2 mr-1">2/3 complete</span>
+    <%= @quest.title %></a>
 
     <ul class="p-1 pl-4 border-l-4 border-purple-300">
       <%= for book <- @quest.books do %>
