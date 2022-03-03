@@ -2,6 +2,7 @@ defmodule BbWeb.Router do
   use BbWeb, :router
 
   import BbWeb.UserAuth
+  alias BbWeb.QuestLive
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -20,6 +21,8 @@ defmodule BbWeb.Router do
   scope "/", BbWeb do
     pipe_through :browser
 
+    resources "/books", BookController
+    resources "/authors", AuthorController
     get "/", PageController, :index
   end
 
