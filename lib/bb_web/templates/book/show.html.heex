@@ -1,0 +1,28 @@
+<h1>Show Book</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @book.title %>
+  </li>
+
+  <li>
+    <strong>Cover:</strong>
+    <%= @book.cover %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @book.description %>
+  </li>
+
+  <li>
+    <strong>Goodreads url:</strong>
+    <%= @book.goodreads_url %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.book_path(@conn, :edit, @book) %></span> |
+<span><%= link "Back", to: Routes.book_path(@conn, :index) %></span>
