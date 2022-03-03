@@ -33,20 +33,37 @@
     />
   </div>
 </form>
-<div class="px-4 sm:px-6 lg:px-16">
+<div class="px-4 sm:px-6 lg:px-16 bg-zinc-50">
 
   <div class="flex flex-wrap gap-4 p-6">
   
   <%= for _ <- 1..5 do %>
 
 
-  <div class="flex flex-col gap-4 shadow p-6 rounded-lg font-serif max-w-lg">
+  <div class="flex flex-col gap-4 shadow p-6 rounded-lg font-serif max-w-lg bg-white">
+
+    <div class="flex rounded">
+      <%= for book <- @quest.books do %>
+        <div class="h-48">
+          <img src={book.cover} class="transition duration-500 h-full object-cover hover:scale-125" />
+        </div>
+      <% end %>
+    </div>
+
+    <a class="text-2xl font-medium" href=""><%= @quest.title %></a>
+
+    <ul class="p-1 pl-4 border-l-4 border-purple-300">
+      <%= for book <- @quest.books do %>
+        <li class="m-1">
+          <a href="" class="italic hover:underline"><%= book.title %></a> by <a href="" class="text-purple-400 hover:underline"><%= book.author.name %></a>
+        </li>
+      <% end %>
+    </ul>
+
 
     <div class="flex flex-col md:flex-row items-start gap-2">
-
     <%# left side %>
     <div class=""> 
-      <div class="text-2xl font-medium"><%= @quest.title %></div>
       <div class="text-sm flex gap-6">
         <a href="#" class="hover:underline text-purple-400"><%= @quest.stats.ratings %> ratings</a>
         <a href="#" class="hover:underline text-purple-400"><%= @quest.stats.comments %> comments</a>
@@ -92,14 +109,7 @@
           </div>
         </a>
     </div>
-    <div class="whitespace-normal"><%= @quest.description %></div>
-    <div class="flex rounded">
-      <%= for book <- @quest.books do %>
-        <div class="h-48">
-          <img src={book.cover} class="transition duration-500 h-full object-cover hover:scale-125" />
-        </div>
-      <% end %>
-    </div>
+    <div class="whitespace-normal"><%= Bb.StringFormatter.truncate(@quest.description) %> <a href="" class="text-purple-400">(expand)</a></div>
 
   </div>
   <% end %>
