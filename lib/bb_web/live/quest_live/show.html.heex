@@ -1,0 +1,36 @@
+<h1>Show Quest</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.quest_show_path(@socket, :show, @quest)}>
+    <.live_component
+      module={BbWeb.QuestLive.FormComponent}
+      id={@quest.id}
+      title={@page_title}
+      action={@live_action}
+      quest={@quest}
+      return_to={Routes.quest_show_path(@socket, :show, @quest)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @quest.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @quest.description %>
+  </li>
+
+  <li>
+    <strong>Tags:</strong>
+    <%= @quest.tags %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.quest_show_path(@socket, :edit, @quest), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.quest_index_path(@socket, :index) %></span>

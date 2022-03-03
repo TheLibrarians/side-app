@@ -1,0 +1,43 @@
+<h1>Listing Quests</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.quest_index_path(@socket, :index)}>
+    <.live_component
+      module={BbWeb.QuestLive.FormComponent}
+      id={@quest.id || :new}
+      title={@page_title}
+      action={@live_action}
+      quest={@quest}
+      return_to={Routes.quest_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Tags</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="quests">
+    <%= for quest <- @quests do %>
+      <tr id={"quest-#{quest.id}"}>
+        <td><%= quest.title %></td>
+        <td><%= quest.description %></td>
+        <td><%= quest.tags %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.quest_show_path(@socket, :show, quest) %></span>
+          <span><%= live_patch "Edit", to: Routes.quest_index_path(@socket, :edit, quest) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: quest.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Quest", to: Routes.quest_index_path(@socket, :new) %></span>

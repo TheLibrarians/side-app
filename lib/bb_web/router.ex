@@ -41,6 +41,9 @@ defmodule BbWeb.Router do
     scope "/" do
       pipe_through :browser
 
+      live "/quests", QuestLive.Index, :index
+      live "/quests/:id", QuestLive.Show, :show
+
       live_dashboard "/dashboard", metrics: BbWeb.Telemetry
     end
   end
@@ -74,6 +77,10 @@ defmodule BbWeb.Router do
 
   scope "/", BbWeb do
     pipe_through [:browser, :require_authenticated_user]
+
+    live "/quests/new", QuestLive.Index, :new
+    live "/quests/:id/edit", QuestLive.Index, :edit
+    live "/quests/:id/show/edit", QuestLive.Show, :edit
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
