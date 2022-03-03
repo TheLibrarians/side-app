@@ -10,10 +10,10 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
-    <%= render "_user_menu.html", assigns %>
     <header
       class="bg-gradient-to-r from-purple-700 to-[#a65fec] px-4 sm:px-6 lg:px-16"
     >
+    <%= render "_user_menu.html", assigns %>
       <div class="max-w-10xl mx-auto divide-y divide-black divide-opacity-10">
         <div class="py-6 flex items-center text-sm leading-5">
           <div class="text-2xl font-display text-white font-semibold">
