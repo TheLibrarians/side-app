@@ -24,9 +24,11 @@ defmodule BbWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", BbWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", BbWeb do
+    pipe_through :api
+
+    resources "/book_statuses", BookStatusController, except: [:new, :edit]
+  end
 
   # Enables LiveDashboard only for development
   #
