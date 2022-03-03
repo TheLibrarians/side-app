@@ -27,6 +27,7 @@ defmodule BbWeb.Router do
   scope "/api", BbWeb do
     pipe_through :api
 
+    resources "/quest_statuses", QuestStatusController, except: [:new, :edit]
     resources "/book_statuses", BookStatusController, except: [:new, :edit]
   end
 
