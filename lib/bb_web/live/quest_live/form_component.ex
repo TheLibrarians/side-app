@@ -7,7 +7,7 @@ defmodule BbWeb.QuestLive.FormComponent do
   def update(%{quest: quest} = assigns, socket) do
     changeset = Quests.change_quest(quest)
 
-    {:ok,
+  {:ok,
      socket
      |> assign(assigns)
      |> assign(:changeset, changeset)}

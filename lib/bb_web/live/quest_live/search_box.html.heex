@@ -1,0 +1,30 @@
+<div>
+
+<form phx-change="validate" phx-target={@myself}>
+  <input type="string" name="search" value={@answer} class="border w-96 p-2 focus:outline-none focus:bg-white bg-zinc-50" phx-debounce="230"/>
+</form>
+
+<%= if @books do %>
+<div class="divide-y w-96 bg-white p-2">
+    <%= for {book, i} <- Enum.with_index(@books) do %>
+        <div class="overflow-hidden hover:bg-zinc-50 hover:text-purple-400" phx-click="select" phx-value-idx={i} phx-target={@myself}>
+        <div class="flex">
+            <div class="flex-none h-16 w-10">
+            <img src={book.cover} class="transition h-full object-cover hover:scale-125" />
+            </div>
+
+            <div class="px-3 overflow-hidden">
+                <div class="flex flex-col">
+                    <div class="truncate font-medium font-sans leading-loose"><%= book.title %></div>
+                    <div class="font-serif text-sm">by Holly Jackson</div>
+                </div>
+            </div>        
+        </div>
+        </div>
+    <% end %>
+    <div class="text-center bg-zinc-50 p-2">See more results for <%= @answer %></div>
+</div>
+<% end %>
+
+
+</div>

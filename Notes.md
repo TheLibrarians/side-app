@@ -41,3 +41,9 @@ Quest completion might be a little easier, since we might just check periodicall
 ```
 mix phx.gen.json Activity QuestStatus quest_statuses user_id:references:users quest_id:references:quests completed:integer
 ```
+
+## Random google searches
+
+[live updating text input with phoenix](https://elixirforum.com/t/updating-dom-on-phx-change-on-text-input/28285)
+
+[case insensitive search](https://www.viget.com/articles/case-insensitve-string-columns-with-postgres-phoenix-and-ecto/)

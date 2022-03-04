@@ -21,6 +21,11 @@ defmodule Bb.Books do
     Repo.all(Book)
   end
 
+  def search(title, limit \\ 5) do
+    user_query = "%#{title}%"
+    Repo.all(from b in Book, where: like(b.title, ^user_query), limit: ^limit)
+  end
+
   @doc """
   Gets a single book.
 

@@ -40,6 +40,15 @@ defmodule BbWeb.QuestLive.Index do
     {:noreply, assign(socket, :quests, list_quests())}
   end
 
+  @doc """
+  Callback when book is selected from the search box
+  """
+  @impl true
+  def handle_info({:selected, book}, socket) do
+    IO.inspect(book.title)
+    {:noreply, socket}
+  end
+
   defp list_quests do
     Quests.list_quests()
   end
