@@ -3,10 +3,10 @@
 
 <h1>Listing Quests</h1>
 
-<.live_component module={BbWeb.QuestLive.SearchBox} id={:new} />
 
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.quest_index_path(@socket, :index)}>
+    <div class="border-4">
     <.live_component
       module={BbWeb.QuestLive.FormComponent}
       id={@quest.id || :new}
@@ -15,6 +15,7 @@
       quest={@quest}
       return_to={Routes.quest_index_path(@socket, :index)}
     />
+    </div>
   </.modal>
 <% end %>
 

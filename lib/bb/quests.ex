@@ -38,6 +38,13 @@ defmodule Bb.Quests do
   def get_quest!(id), do: Repo.get!(Quest, id)
 
   @doc """
+  For testing purposes -- loads a quest
+  """
+  def sample_quest do
+    Bb.Quests.get_quest!(7) |> Repo.preload(:books)
+  end
+
+  @doc """
   Creates a quest.
 
   ## Examples
