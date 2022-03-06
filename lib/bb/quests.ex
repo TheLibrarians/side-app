@@ -18,7 +18,7 @@ defmodule Bb.Quests do
 
   """
   def list_quests do
-    Repo.all(Quest) |> Repo.preload(:books)
+    Repo.all(from q in Quest, order_by: q.updated_at) |> Repo.preload(:books)
   end
 
   @doc """
