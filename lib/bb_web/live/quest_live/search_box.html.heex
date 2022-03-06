@@ -1,11 +1,11 @@
-<div>
+<div class="max-w-sm">
 
 <form phx-change="validate" phx-target={@myself}>
-  <input type="string" name="search" value={@answer} class="border w-96 p-2 focus:outline-none focus:bg-white bg-zinc-50" phx-debounce="230"/>
+  <input type="string" name="search" value={@answer} class="border w-full p-2 focus:outline-none focus:bg-white bg-zinc-50" phx-debounce="230"/>
 </form>
 
 <%= if @books do %>
-<div class="divide-y w-96 bg-white p-2">
+<div class="divide-y py-2 md:p-2 bg-white">
     <%= for {book, i} <- Enum.with_index(@books) do %>
         <div class="overflow-hidden hover:bg-zinc-50 hover:text-purple-400" phx-click="select" phx-value-idx={i} phx-target={@myself}>
         <div class="flex">

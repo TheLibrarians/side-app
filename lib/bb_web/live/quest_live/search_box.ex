@@ -7,7 +7,7 @@ defmodule BbWeb.QuestLive.SearchBox do
   end
 
   def assign_books(socket) do
-    socket |> assign(:books, nil)
+    socket |> assign(:books, Bb.Books.list_books())
   end
 
   @impl true
@@ -29,7 +29,7 @@ defmodule BbWeb.QuestLive.SearchBox do
         IO.puts("something went wrong...")
 
       book ->
-        send(self(), {:selected, book})
+        send_update(BbWeb.QuestLive.FormComponent, id: "quest-form", action: {:selected, book})
     end
 
     {:noreply, socket}

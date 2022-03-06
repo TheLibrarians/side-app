@@ -1,7 +1,7 @@
 <div class="p-4">
   <h2 class="text-3xl"><%= @title %></h2>
   
-  <div class="flex flex-col md:flex-row gap-6">
+  <div class="w-full flex flex-col md:flex-row gap-6">
     <.form
       let={f}
       for={@changeset}
@@ -9,7 +9,7 @@
       phx-target={@myself}
       phx-change="validate"
       phx-submit="save"
-      class="space-y-6 flex-grow">
+      class="space-y-6">
 
       <div class="space-y-1">
         <%= label f, :title, class: "font-medium" %>
@@ -19,18 +19,57 @@
 
       <div class="space-y-1">
         <%= label f, :description, class: "font-medium" %>
-        <%= text_input f, :description, class: "w-full block border border-gray-200 rounded px-3 py-2 leading-6 focus:outline-none" %>
+        <%= textarea f, :description, class: "w-full block border border-gray-200 rounded px-3 py-2 leading-6 focus:outline-none" %>
         <%= error_tag f, :description %>
       </div>
 
       <%= error_tag f, :tags %>
-      
+
+      <%= for {_, book} <- @books do %>
+        <div class="overflow-hidden hover:bg-zinc-50 hover:text-purple-400">
+          <div class="flex items-center">
+              <div class="flex-none h-16 w-10">
+                <img src={book.cover} class="transition h-full object-cover hover:scale-125" />
+              </div>
+              <input name={"quest[books][]"} type="hidden" value={book.id}/>
+              <div class="px-3 overflow-hidden">
+                  <div class="flex flex-col">
+                      <div class="truncate font-medium font-sans leading-loose"><%= book.title %></div>
+                      <div class="font-serif text-sm">by Holly Jackson</div>
+                  </div>
+              </div>
+
+              <%# delete button %>
+              <div
+                class="grid place-content-center mx-3 w-6 h-6 ml-auto text-red-400 cursor-pointer"
+                phx-click="delete-book"
+                phx-value-send={book.id}
+                phx-target={@myself}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </div>
+          </div>
+        </div>
+      <% end %>
       <div class="mt-10">
         <%= submit "Save", phx_disable_with: "Saving...", class: "button-30" %>
       </div>
     </.form>
 
-    <div class="space-y-1 pt-6 flex-grow">
+    <div class="space-y-1 pt-6">
       <div class="font-medium">Add books</div>
       <.live_component module={BbWeb.QuestLive.SearchBox} id={:new} />
     </div>

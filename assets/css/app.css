@@ -122,9 +122,7 @@ h1 {
 .phx-modal-content {
   background-color: #fefefe;
   margin: 15vh auto;
-  padding: 20px;
   border: 1px solid #888;
-  width: 80%;
 }
 
 .phx-modal-close {
@@ -132,6 +130,8 @@ h1 {
   float: right;
   font-size: 28px;
   font-weight: bold;
+  padding-top: 4px;
+  padding-right: 10px;
 }
 
 .phx-modal-close:hover,

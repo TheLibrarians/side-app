@@ -37,6 +37,10 @@ defmodule Bb.Quests do
   """
   def get_quest!(id), do: Repo.get!(Quest, id)
 
+  def get_quest_with_books!(id) do
+    Repo.get!(Quest, id) |> Repo.preload(:books)
+  end
+
   @doc """
   For testing purposes -- loads a quest
   """
@@ -63,6 +67,15 @@ defmodule Bb.Quests do
   end
 
   @doc """
+  Create a quest with books
+  """
+  def create_quest(attrs, books) do
+    %Quest{}
+    |> Quest.changeset(attrs, books)
+    |> Repo.insert()
+  end
+
+  @doc """
   Updates a quest.
 
   ## Examples
@@ -79,6 +92,16 @@ defmodule Bb.Quests do
     |> Quest.changeset(attrs)
     |> Repo.update()
   end
+
+  @doc """
+  Updates a quest with books
+  """
+  def update_quest(%Quest{} = quest, attrs, books) do
+    quest
+    |> Quest.changeset(attrs, books)
+    |> Repo.update()
+  end
+
 
   @doc """
   Deletes a quest.

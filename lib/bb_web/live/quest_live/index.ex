@@ -17,7 +17,7 @@ defmodule BbWeb.QuestLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Quest")
-    |> assign(:quest, Quests.get_quest!(id))
+    |> assign(:quest, Quests.get_quest_with_books!(id))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -35,9 +35,15 @@ defmodule BbWeb.QuestLive.Index do
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     quest = Quests.get_quest!(id)
-    {:ok, _} = Quests.delete_quest(quest)
 
-    {:noreply, assign(socket, :quests, list_quests())}
+    case Quests.delete_quest(quest) do
+      {:ok, _} ->
+        {:noreply, assign(socket, :quests, list_quests())}
+
+      {:error, changeset} ->
+        IO.inspect(changeset, label: "error deleting!!")
+        {:noreply, socket}
+    end
   end
 
   @doc """
