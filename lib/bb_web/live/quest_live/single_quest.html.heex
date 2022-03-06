@@ -1,0 +1,49 @@
+
+  <div class="flex flex-col gap-4 shadow p-6 rounded-lg font-serif max-w-lg bg-white">
+
+    <div class="flex rounded">
+      <%= for book <- @quest.books do %>
+        <div class="h-48">
+          <img src={book.cover} class="transition duration-500 h-full object-cover hover:scale-125" />
+        </div>
+      <% end %>
+    </div>
+    
+    <%= live_redirect to: Routes.quest_show_path(@socket, :show, @quest), class: "font-sans font-bold" do %>
+        <span class="rounded bg-purple-400 text-white p-1 px-2 mr-1">2/3 complete</span>
+        <%= @quest.title %>
+    <% end %>
+
+    <ul class="p-1 pl-4 border-l-4 border-purple-300">
+      <%= for book <- @quest.books do %>
+        <li class="m-1">
+          <a href="" class="italic hover:underline"><%= book.title %></a> by <a href="" class="text-purple-400 hover:underline"><%= "unknown author" %></a>
+        </li>
+      <% end %>
+    </ul>
+
+
+    <div class="flex flex-col md:flex-row items-start gap-2">
+    <%# left side %>
+    <div class=""> 
+      <div class="text-sm flex gap-6">
+        <a href="#" class="hover:underline text-purple-400"><%= 123 %> ratings</a>
+        <a href="#" class="hover:underline text-purple-400"><%= 234 %> comments</a>
+      </div>
+    </div>
+
+    <%# right side %>
+      
+    </div>
+    <div class="whitespace-normal"><%= Bb.StringFormatter.truncate(@quest.description) %> <a href="" class="text-purple-400">(expand)</a></div>
+    
+    <div class="mt-2"></div>
+    <div class="flex justify-end mt-auto -mb-6 -mr-6">
+      <div class="flex text-zinc-300 space-x-10 justify-end p-2 px-8 text-sm font-sans">
+        <span><%= live_patch "Edit", to: Routes.quest_index_path(@socket, :edit, @quest), class: "hover:text-purple-400" %></span>
+        <span><%= live_patch "Favorite", to: "", class: "hover:text-purple-400" %></span>
+        <span><%= live_patch "Remix", to: "", class: "hover:text-purple-400" %></span>
+        <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: @quest.id, data: [confirm: "Are you sure?"], class: "hover:text-purple-400" %></span>
+      </div>
+    </div>
+  </div>

@@ -18,7 +18,7 @@ defmodule Bb.Quests do
 
   """
   def list_quests do
-    Repo.all(Quest)
+    Repo.all(Quest) |> Repo.preload(:books)
   end
 
   @doc """
@@ -101,7 +101,6 @@ defmodule Bb.Quests do
     |> Quest.changeset(attrs, books)
     |> Repo.update()
   end
-
 
   @doc """
   Deletes a quest.

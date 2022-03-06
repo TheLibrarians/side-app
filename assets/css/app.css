@@ -110,7 +110,7 @@ h1 {
 .phx-modal {
   opacity: 1!important;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
@@ -121,8 +121,14 @@ h1 {
 
 .phx-modal-content {
   background-color: #fefefe;
-  margin: 15vh auto;
+  margin: 6vh auto;
   border: 1px solid #888;
+}
+
+@media (min-width: 600px) {
+  .phx-modal-content {
+    margin: 15vh auto;
+  }
 }
 
 .phx-modal-close {

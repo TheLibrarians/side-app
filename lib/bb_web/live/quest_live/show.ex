@@ -13,7 +13,7 @@ defmodule BbWeb.QuestLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:quest, Quests.get_quest!(id))}
+     |> assign(:quest, Quests.get_quest_with_books!(id))}
   end
 
   defp page_title(:show), do: "Show Quest"
