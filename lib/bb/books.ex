@@ -79,6 +79,48 @@ defmodule Bb.Books do
   end
 
   @doc """
+  Upserts a book
+  """
+  def upsert_book(%Book{} = book, attrs) do
+    book |> Book.changeset(attrs) |> Repo.insert!(on_conflict: :nothing)
+  end
+
+  @doc """
+  Upserts multiple books
+  """
+  def upsert_books(books) do
+    timestamp =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.truncate(:second)
+
+    placeholders = %{timestamp: timestamp}
+
+    names = Enum.map(books, & &1.title)
+
+    maps =
+      Enum.map(
+        books,
+        &%{
+          title: &1.title,
+          description: &1.description,
+          goodreads_url: &1.goodreads_url,
+          cover: &1.cover,
+          inserted_at: {:placeholder, :timestamp},
+          updated_at: {:placeholder, :timestamp}
+        }
+      )
+
+    Repo.insert_all(
+      Book,
+      maps,
+      placeholders: placeholders,
+      on_conflict: :nothing
+    )
+
+    Repo.all(from b in Book, where: b.title in ^names)
+  end
+
+  @doc """
   Deletes a book.
 
   ## Examples

@@ -3,26 +3,21 @@
 
 <h1>Listing Books</h1>
 
-<span><%= link "New Book", to: Routes.book_path(@conn, :new) %></span>
+<div class="flex justify-between items-center p-2 pt-4 font-bold capitalize">
+  <div class="text-lg">Trending books</div>
+  <div class="text-sm text-gray-500">
+    <span><%= link "New Book", to: Routes.book_path(@conn, :new) %></span>
+  </div>
+</div>
 
-<div class="flex flex flex-wrap space-y-4 mt-4">
-
+<div class="flex flex-wrap gap-4 p-2">
   <%= for book <- @books do %>
-    <div class="p-4 rounded shadow w-96">
-      <h1><%= book.title %></h1>
-      <div class="flex gap-x-4">
-        <div class="h-48">
-          <img src={book.cover} class="transition h-full object-cover hover:scale-125" />
-        </div>
-        <tr>
-          <td>
-            <span><%= link "Show", to: Routes.book_path(@conn, :show, book) %></span>
-            <span><%= link "Edit", to: Routes.book_path(@conn, :edit, book) %></span>
-            <span><%= link "Delete", to: Routes.book_path(@conn, :delete, book), method: :delete, data: [confirm: "Are you sure?"] %></span>
-          </td>
-        </tr>
-      </div>
-    </div>
+  <%= link to: Routes.book_path(@conn, :show, book) do %>
+  <div class="w-24 overflow-hidden shrink-0">
+    <img src={book.cover}  class="w-24 h-30 rounded-lg" />
+    <div class="font-bold text-sm text-gray-500 truncate"><%= book.title %></div>
+  </div> 
+  <% end %>
   <% end %>
 </div>
 

@@ -28,7 +28,7 @@
 </ul>
 
 <span><%= link "Edit", to: Routes.book_path(@conn, :edit, @book) %></span> |
-<span><%= link "Back", to: Routes.book_path(@conn, :index) %></span>
-
+<span><%= link "Back", to: Routes.book_path(@conn, :index) %></span> |
+<span><%= link "Delete", to: Routes.book_path(@conn, :delete, @book), method: :delete, data: [confirm: "Are you sure?"] %></span>
 </div>
 </div>

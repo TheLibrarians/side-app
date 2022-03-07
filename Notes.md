@@ -47,3 +47,6 @@ mix phx.gen.json Activity QuestStatus quest_statuses user_id:references:users qu
 [live updating text input with phoenix](https://elixirforum.com/t/updating-dom-on-phx-change-on-text-input/28285)
 
 [case insensitive search](https://www.viget.com/articles/case-insensitve-string-columns-with-postgres-phoenix-and-ecto/)
+
+[seed data](https://dev.to/noelworden/elixir-phoenix-importing-csv-data-seeding-data-2b7p)
+[bulk upserts](https://hexdocs.pm/ecto/constraints-and-upserts.html)
