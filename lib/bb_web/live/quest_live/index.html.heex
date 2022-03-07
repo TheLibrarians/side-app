@@ -1,63 +1,68 @@
-
-<%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.quest_index_path(@socket, :index)}>
-    <div class="border-4">
-    <.live_component
-      module={BbWeb.QuestLive.FormComponent}
-      id={"quest-form"}
-      title={@page_title}
-      action={@live_action}
-      quest={@quest}
-      return_to={Routes.quest_index_path(@socket, :index)}
-    />
-    </div>
-  </.modal>
-<% end %>
-
-<form class="group sticky top-0 z-50 bg-white px-4 sm:px-6 lg:px-16 shadow isolate">
-  <div class="max-w-10xl mx-auto flex">
-    <label for="search-input" class="flex-none pr-3 flex items-center">
-      <span class="sr-only">
-        Search all
-        <!-- -->
-        230
-        <!-- -->
-        icons
-      </span>
-      <svg
-        width="24"
-        height="24"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        class="text-gray-400 group-focus-within:text-gray-500 transition-colors duration-150"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-        ></path>
-      </svg>
-    </label>
-    <input
-      type="text"
-      id="search-input"
-      value=""
-      placeholder="Search all 230 quests (Press “/” to focus)"
-      class="flex-auto py-6 text-base leading-6 text-gray-500 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400"
-    />
-    
-    <span><%= live_patch "New Quest", to: Routes.quest_index_path(@socket, :new) %></span>
+<div class="grid grid-cols-3 w-full p-2 items-center">
+  <div class="font-bold capitalize justify-self-start text-purple-400">
+   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+  </svg>
   </div>
-</form>
-<div class="px-4 sm:px-6 lg:px-16 bg-zinc-50">
-  <div class="flex flex-wrap gap-4 p-6">
-    <%= for quest <- @quests do %>
-        <.live_component 
-          module={BbWeb.QuestLive.SingleQuest}
-          id={"quest-#{quest.id}"}
-          quest={quest} />
-    <% end %>
+  <div class="font-bold capitalize justify-self-center mr-1">Home</div>
+  <div class="w-8 h-8 justify-self-end">
+    <img class="rounded-full" src="https://source.unsplash.com/50x50" alt="my image">
   </div>
 </div>
+
+<form class="p-2 pt-4">
+  <input type="string" name="search" placeholder="Titles, authors, or topics" class="border text-orange-400 font-medium rounded-xl w-full text-sm p-3 focus:outline-none focus:bg-white bg-zinc-50" phx-debounce="230"/>
+</form>
+
+<div class="flex justify-between items-center p-2 pt-4 font-bold capitalize">
+  <div class="text-lg">Categories</div>
+  <div class="text-sm text-gray-500">See all</div>
+</div>
+
+<div class="flex flex-wrap p-2 gap-2">
+  <%= for category <- @categories do %>
+    <div class="rounded-lg bg-zinc-100 p-2 px-3 text-sm font-bold text-stone-500 capitalize">
+      <%= category %>
+    </div>
+  <% end %>
+</div>
+
+<div class="flex justify-between items-center p-2 pt-4 font-bold capitalize">
+  <div class="text-lg">Trending books</div>
+  <div class="text-sm text-gray-500">See all</div>
+</div>
+
+<div class="flex flex-nowrap overflow-scroll gap-4 p-2">
+  <%= for book <- @trending_books do %>
+  <div class="w-20 overflow-hidden shrink-0">
+    <img src={book.cover}  class="w-20 h-30 rounded-lg" />
+    <div class="font-bold text-sm text-gray-500 truncate"><%= book.title %></div>
+  </div> 
+  <% end %>
+</div>
+
+<div class="flex justify-between items-center p-2 pt-4 font-bold capitalize">
+  <div class="text-lg">Quests you'll love</div>
+  <div class="text-sm text-gray-500">See all</div>
+</div>
+
+<div class="flex flex-col gap-2">
+<%= for quest <- @quests do %>
+<div class="p-2 flex items-start">
+  <div class="w-16 h-16 mr-3 shrink-0 overflow-hidden">
+    <img class="rounded-lg w-full" src="https://source.unsplash.com/150x150" alt="my image">
+  </div>
+  <div class="truncate">
+    <div class="text-lg">
+      <%= live_redirect quest.title, to: Routes.quest_show_path(@socket, :show, quest), 
+        class: "hover:text-purple-400 capitalize" %>
+    </div>
+    <div class="text-sm text-gray-400 truncate mt-1">
+      <%= Bb.StringFormatter.truncate(quest.description) %>
+    </div>
+  </div>
+</div>
+<% end %>
+</div>
+
+<div class="pb-4"></div>

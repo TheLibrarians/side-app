@@ -15,7 +15,8 @@
 <.live_component 
   module={BbWeb.QuestLive.SingleQuest}
   id={"quest-#{@quest.id}"}
-  quest={@quest} />
+  quest={@quest}
+  theme={@theme}/>
 
 <span><%= live_patch "Edit", to: Routes.quest_show_path(@socket, :edit, @quest), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.quest_index_path(@socket, :index) %></span>

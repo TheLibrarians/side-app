@@ -1,49 +1,60 @@
+<div class="quest">
 
-  <div class="flex flex-col gap-4 shadow p-6 rounded-lg font-serif max-w-lg bg-white">
+<div class={"#{@theme} rounded-xl"}>
 
-    <div class="flex rounded">
-      <%= for book <- @quest.books do %>
-        <div class="h-48">
-          <img src={book.cover} class="transition duration-500 h-full object-cover hover:scale-125" />
-        </div>
-      <% end %>
+<div class="p-10 flex items-start">
+  <div class="w-20 h-20 mr-8 shrink-0 overflow-hidden rounded-lg">
+    <img class="rounded-lg w-full" src={"https://source.unsplash.com/150x150"} alt="my image">
+  </div>
+  <div class="truncate">
+    <div class="text-lg text-white font-bold">
+      <%= @quest.title %>
     </div>
-    
-    <%= live_redirect to: Routes.quest_show_path(@socket, :show, @quest), class: "font-sans font-bold" do %>
-        <span class="rounded bg-purple-400 text-white p-1 px-2 mr-1">2/3 complete</span>
-        <%= @quest.title %>
-    <% end %>
-
-    <ul class="p-1 pl-4 border-l-4 border-purple-300">
-      <%= for book <- @quest.books do %>
-        <li class="m-1">
-          <a href="" class="italic hover:underline"><%= book.title %></a> by <a href="" class="text-purple-400 hover:underline"><%= "unknown author" %></a>
-        </li>
-      <% end %>
-    </ul>
-
-
-    <div class="flex flex-col md:flex-row items-start gap-2">
-    <%# left side %>
-    <div class=""> 
-      <div class="text-sm flex gap-6">
-        <a href="#" class="hover:underline text-purple-400"><%= 123 %> ratings</a>
-        <a href="#" class="hover:underline text-purple-400"><%= 234 %> comments</a>
-      </div>
+    <div class="text-sm text-gray-200 truncate mt-1 font-medium">
+      by eonvocen
     </div>
 
-    <%# right side %>
-      
-    </div>
-    <div class="whitespace-normal"><%= Bb.StringFormatter.truncate(@quest.description) %> <a href="" class="text-purple-400">(expand)</a></div>
-    
-    <div class="mt-2"></div>
-    <div class="flex justify-end mt-auto -mb-6 -mr-6">
-      <div class="flex text-zinc-300 space-x-10 justify-end p-2 px-8 text-sm font-sans">
-        <span><%= live_patch "Edit", to: Routes.quest_index_path(@socket, :edit, @quest), class: "hover:text-purple-400" %></span>
-        <span><%= live_patch "Favorite", to: "", class: "hover:text-purple-400" %></span>
-        <span><%= live_patch "Remix", to: "", class: "hover:text-purple-400" %></span>
-        <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: @quest.id, data: [confirm: "Are you sure?"], class: "hover:text-purple-400" %></span>
-      </div>
+
+    <div class="text-sm text-gray-200 truncate mt-1">
+      1314 people have done this
     </div>
   </div>
+</div>
+
+</div>
+
+<div class={"p-4 text-center text-sm leading-relaxed"}>
+  <%= @quest.description %>
+</div>
+
+<div class="p-10 pb-0 pt-1">
+  <div class={"rounded-full text-center w-full p-3 font-bold text-white #{@theme} shadow-xl"}>
+    Join Quest
+  </div>
+</div>
+
+<div class="flex justify-between items-center p-2 pt-4 font-bold capitalize">
+  <div class="text-lg">Books</div>
+  <div class="text-sm text-gray-500">See all</div>
+</div>
+
+<div class="flex flex-col gap-2">
+<%= for book <- @quest.books do %>
+<div class="p-2 flex items-start">
+  <div class="w-16 h-16 mr-3 shrink-0 overflow-hidden rounded-lg">
+    <img class="rounded-lg w-full" src={book.cover} alt="my image">
+  </div>
+  <div class="truncate">
+    <div class="text-lg">
+      <%= link book.title, to: Routes.book_path(@socket, :show, book), class: "hover:text-purple-400 capitalize" %>
+    </div>
+    <div class="text-sm text-gray-400 truncate mt-1">
+      <%= Bb.StringFormatter.truncate(book.description) %>
+    </div>
+  </div>
+</div>
+<% end %>
+</div>
+
+
+</div>

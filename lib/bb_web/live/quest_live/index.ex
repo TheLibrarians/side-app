@@ -6,7 +6,29 @@ defmodule BbWeb.QuestLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :quests, list_quests())}
+    {:ok,
+     socket
+     |> assign(:quests, list_quests())
+     |> assign(:trending_books, Bb.Books.list_books())
+     |> assign_categories()
+     |> assign_theme()}
+  end
+
+  def assign_theme(socket) do
+    socket
+    |> assign(:theme, @bg_choices[:hyper])
+  end
+
+  def assign_categories(socket) do
+    socket
+    |> assign(:categories, [
+      "Motivation & Inspiration",
+      "Science",
+      "health & nutrition",
+      "education",
+      "psychology",
+      "money & investments"
+    ])
   end
 
   @impl true
