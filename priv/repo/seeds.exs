@@ -37,23 +37,22 @@ defmodule Seeds.Importer do
       |> Map.new(fn {val, num} -> {column_names[num], val} end)
       |> change_to_book_struct()
     end)
-    |> insert_all
+    |> insert_all()
   end
 
   def change_to_book_struct(data) do
     %{
-      "author_name" => author_name,
-      "cover" => cover,
-      "description" => desc,
-      "goodreads_url" => goodreads_url,
+      "authors" => author_names,
+      "average_rating" => average_rating,
+      "ratings_count" => n_ratings,
       "title" => title
     } = data
 
     %{
-      author_name: author_name,
-      cover: cover,
-      description: desc,
-      goodreads_url: goodreads_url,
+      author_name: author_names,
+      cover: "https://dummyimage.com/160x237.png/ff4444/ffffff",
+      description: "#{n_ratings} with an average of #{average_rating}",
+      goodreads_url: "",
       title: title
     }
   end
@@ -65,4 +64,4 @@ defmodule Seeds.Importer do
   end
 end
 
-Seeds.Importer.csv_row_to_table_record("priv/repo/mock_books.csv")
+Seeds.Importer.csv_row_to_table_record("priv/repo/books.csv")

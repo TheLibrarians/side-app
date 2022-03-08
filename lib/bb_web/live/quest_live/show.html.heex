@@ -3,7 +3,7 @@
   <.modal return_to={Routes.quest_show_path(@socket, :show, @quest)}>
     <.live_component
       module={BbWeb.QuestLive.FormComponent}
-      id={@quest.id}
+      id={"quest-form"}
       title={@page_title}
       action={@live_action}
       quest={@quest}

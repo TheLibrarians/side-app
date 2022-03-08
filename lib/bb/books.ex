@@ -17,11 +17,11 @@ defmodule Bb.Books do
       [%Book{}, ...]
 
   """
-  def list_books do
-    Repo.all(Book)
+  def list_books(limit \\ 15) do
+    Repo.all(from b in Book, limit: ^limit)
   end
 
-  def search(title, limit \\ 5) do
+  def search(title, limit \\ 15) do
     user_query = "%#{title}%"
     Repo.all(from b in Book, where: like(b.title, ^user_query), limit: ^limit)
   end
